@@ -127,6 +127,7 @@ Here are the **core calculated fields** that made the dashboard dynamic, respons
 <img width="1584" height="396" alt="banner" src="/candlestick.png" />  
 ---
 ```text
+
 RangeOpenClose = SUM([Close]) - SUM([Open])
 RangeLowHigh = SUM([High]) - SUM([Low])
 OpenCloseIncrease = [RangeOpenClose] > 0
@@ -134,6 +135,7 @@ OpenCloseIncrease = [RangeOpenClose] > 0
 MaxDateContext = {MAX([Date])}
 FirstDateVisible = [MaxDateContext] - ([View Period] - 1)
 DateFilter = [Date] >= [FirstDateVisible]
+
 ```
 
 ### 📊 Bollinger Bands
