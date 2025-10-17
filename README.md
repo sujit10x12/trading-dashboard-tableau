@@ -123,86 +123,85 @@ GO
 
 Here are the **core calculated fields** that made the dashboard dynamic, responsive, and visually powerful.
 
-### 📉 Candlestick Chart
-<img width="1584" height="396" alt="banner" src="/candlestick.png" />  
+## 🕯️ Candlestick Chart
+| Calculation | Formula | Purpose |
+|--------------|----------|----------|
+| **RangeOpenClose** | `SUM([Close]) - SUM([Open])` | Defines candle body size |
+| **RangeLowHigh** | `SUM([High]) - SUM([Low])` | Defines wick (shadow) size |
+| **OpenCloseIncrease** | `[RangeOpenClose] > 0` | Identifies bullish (true) or bearish (false) candle color |
+| **MaxDateContext** | `{MAX([Date])}` | Captures the most recent date in the dataset |
+| **FirstDateVisible** | `[MaxDateContext] - ([View Period] - 1)` | Calculates first date of visible range |
+| **DateFilter** | `[Date] >= [FirstDateVisible]` | Filters data for selected view period |
+
 ---
+
+## 📈 Bollinger Bands
+| Calculation | Formula | Purpose |
+|--------------|----------|----------|
+| **CloseMA** | `WINDOW_AVG(SUM([Close]), -19, 0)` | 20-day moving average of close price |
+| **CloseSD** | `WINDOW_STDEV(SUM([Close]), -([Lookback Period (MA)]-1), 0)` | Rolling standard deviation of close price |
+| **BollingerUpper** | `[CloseMA] + [# of STDEV]*[CloseSD]` | Upper Bollinger Band |
+| **BollingerLower** | `[CloseMA] - [# of STDEV]*[CloseSD]` | Lower Bollinger Band |
+| **DateVisibility** | `LOOKUP(MAX([Date]) >= MAX([FirstDateVisible]),0)` | Ensures proper date filtering in chart |
+
+**Color Code for Breakouts**
 ```text
-
-RangeOpenClose = SUM([Close]) - SUM([Open])
-RangeLowHigh = SUM([High]) - SUM([Low])
-OpenCloseIncrease = [RangeOpenClose] > 0
-
-MaxDateContext = {MAX([Date])}
-FirstDateVisible = [MaxDateContext] - ([View Period] - 1)
-DateFilter = [Date] >= [FirstDateVisible]
-
-```
-
-### 📊 Bollinger Bands
-<img width="1584" height="396" alt="banner" src="/bollinger.png" />  
----
-```text
-CloseMA = WINDOW_AVG(SUM([Close]), -19, 0)
-CloseSD = WINDOW_STDEV(SUM([Close]), -([Lookback Period (MA)]-1), 0)
-BollingerUpper = [CloseMA] + [# of STDEV]*[CloseSD]
-BollingerLower = [CloseMA] - [# of STDEV]*[CloseSD]
-
 IF SUM([Close]) > [Bollinger Upper] THEN 'UP'
 ELSEIF SUM([Close]) < [Bollinger Lower] THEN 'DOWN'
-ELSE 'NO' END
+ELSE 'NO'
+END
 ```
 
-### 📈 Traded Volume
-```text
-CountPreviousDays = RUNNING_SUM([CountDays]) - 1
-PreviousVolumeHigh = WINDOW_MAX(SUM([Volume]), -[CountPreviousDays], 0)
-```
-
-### 🌱 Relative Growth
-<img width="1584" height="396" alt="banner" src="/pctgrowth.png" />  
 ---
-```text
-CloseOnFirstDateVisible = WINDOW_MAX(
-    IF MAX([Date]) = WINDOW_MIN(MIN([Date])) THEN SUM([Close]) END
-)
-%Growth = (SUM([Close]) - [CloseOnFirstDateVisible]) / [CloseOnFirstDateVisible]
-Ticker Is Selected = [Symbol] = [Ticker Selection]
-```
 
-### 🔥 Total Growth Heat Table
-<img width="1584" height="396" alt="banner" src="/heatmap.png" />  
+## 📊 Traded Volume
+| Calculation | Formula | Purpose |
+|--------------|----------|----------|
+| **CountPreviousDays** | `RUNNING_SUM([CountDays]) - 1` | Counts elapsed trading days |
+| **PreviousVolumeHigh** | `WINDOW_MAX(SUM([Volume]), -[CountPreviousDays], 0)` | Detects highest volume over previous days |
+
 ---
-```text
-CloseOnMaxDateContext = SUM(IF [Date] = [MaxDateContext] THEN [Close] END)
-MinDateContext = {MIN([Date])}
-CloseOnMinDateContext = SUM(IF [Date] = [MinDateContext] THEN [Close] END)
-%GrowthTotal = ([CloseOnMaxDateContext] - [CloseOnMinDateContext]) / [CloseOnMinDateContext]
-```
 
-### ⏱️ Intraday Summary Measures
-```text
-MinDateTime = {MIN([Date Time])}
-MaxDateTime = {MAX([Date Time])}
-Beta (5Y Monthly) = SUM(IF [Date Time] = [MaxDateTime] THEN [Beta] END)
-Latest Bid = SUM(IF [Date Time] = [MaxDateTime] THEN [Last Bid] END)
-Market Cap (MM) = SUM(IF [Date Time] = [MaxDateTime] THEN [Market Cap] END)
-Today’s High = {MAX([High])}
-Today’s Low = {MIN([Low])}
-Today’s Open = SUM(IF [Date Time] = [MinDateTime] THEN [Open] END)
-```
+## 📈 Relative Growth
+| Calculation | Formula | Purpose |
+|--------------|----------|----------|
+| **CloseOnFirstDateVisible** | `WINDOW_MAX(IF MAX([Date]) = WINDOW_MIN(MIN([Date])) THEN SUM([Close]) END)` | Captures the first visible close price |
+| **%Growth** | `(SUM([Close]) - [CloseOnFirstDateVisible]) / [CloseOnFirstDateVisible]` | Calculates growth relative to first visible date |
+| **Ticker Is Selected** | `[Symbol] = [Ticker Selection]` | Highlights selected ticker dynamically |
+
+---
+
+## 🔥 Total Growth Heat Table
+| Calculation | Formula | Purpose |
+|--------------|----------|----------|
+| **CloseOnMaxDateContext** | `SUM(IF [Date] = [MaxDateContext] THEN [Close] END)` | Latest close price |
+| **MinDateContext** | `{MIN([Date])}` | First available date in dataset |
+| **CloseOnMinDateContext** | `SUM(IF [Date] = [MinDateContext] THEN [Close] END)` | First close price |
+| **%GrowthTotal** | `([CloseOnMaxDateContext] - [CloseOnMinDateContext]) / [CloseOnMinDateContext]` | Total growth over the entire date range |
+
+---
+
+## 🕒 Intraday Summary Measures
+| Metric | Formula | Description |
+|---------|----------|-------------|
+| **MinDateTime** | `{MIN([Date Time])}` | Captures earliest intraday record |
+| **MaxDateTime** | `{MAX([Date Time])}` | Captures latest intraday record |
+| **Beta (5Y Monthly)** | `SUM(IF [Date Time] = [MaxDateTime] THEN [Beta] END)` | Latest Beta value |
+| **Latest Bid** | `SUM(IF [Date Time] = [MaxDateTime] THEN [Last Bid] END)` | Most recent bid price |
+| **Market Cap (MM)** | `SUM(IF [Date Time] = [MaxDateTime] THEN [Market Cap] END)` | Latest market capitalization |
+| **Today’s High** | `{MAX([High])}` | Current day’s highest price |
+| **Today’s Low** | `{MIN([Low])}` | Current day’s lowest price |
+| **Today’s Open** | `SUM(IF [Date Time] = [MinDateTime] THEN [Open] END)` | Opening price of the day |
 
 ---
 
 ## 🪄 **Treemap Calculations & Data Blending**
-<img width="1584" height="396" alt="banner" src="/treemap.png" />  
----
+
 Both datasets were used separately due to **different grains**:
 - **Historical Prices:** Ticker Price by *Day*  
 - **Intraday Prices:** Ticker Price by *Minute*
 
 Since Tableau Public doesn’t allow joining these directly, **Data Blending** was used to integrate both datasets within the dashboard.
-
----
 
 ---
 
