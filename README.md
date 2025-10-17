@@ -1,6 +1,6 @@
 
 # 📈 Trading Dashboard in Tableau  
-<img width="1584" height="396" alt="banner" src="/banner.png" />
+<img width="1584" height="396" alt="banner" src="/images/banner.png" />
 
 ---
 
@@ -61,7 +61,7 @@ Enhancing user experience with dynamic Tableau features:
 
 ## 🗃️ **Entity Relationship Diagram (ERD)**
 > *(Visual representation of the database structure used for the dashboard)*  
-> <img width="1045" height="407" alt="erd" src="https://github.com/user-attachments/assets/85e0da0a-fa94-4482-9083-1d8cd1ddff85" />
+> <img width="1045" height="407" alt="erd" src="/images/erd.png" />
 
 ---
 
@@ -125,7 +125,7 @@ Here are the **core calculated fields** that made the dashboard dynamic, respons
 
 ## 🕯️ Candlestick Chart
 
-<img width="1875" height="1201" alt="Candlestick" src="https://github.com/user-attachments/assets/2611d5fb-d609-4a1d-90bf-587016488c47" />
+<img width="1875" height="1201" alt="Candlestick" src="/images/candlestick.png" />
 
 ---
 | Calculation | Formula | Purpose |
@@ -141,7 +141,7 @@ Here are the **core calculated fields** that made the dashboard dynamic, respons
 
 ## 📈 Bollinger Bands
 
-<img width="1875" height="1201" alt="Candlestick" src="https://github.com/user-attachments/assets/2611d5fb-d609-4a1d-90bf-587016488c47" />
+<img width="1875" height="1201" alt="Candlestick" src="/images/bollinger.png" />
 
 ---
 | Calculation | Formula | Purpose |
@@ -172,7 +172,7 @@ END
 
 ## 📈 Relative Growth
 
-<img width="1875" height="1201" alt="Candlestick" src="https://github.com/user-attachments/assets/2611d5fb-d609-4a1d-90bf-587016488c47" />
+<img width="1875" height="1201" alt="Candlestick" src="/images/pctgrowth.png" />
 
 ---
 | Calculation | Formula | Purpose |
@@ -185,7 +185,7 @@ END
 
 ## 🔥 Total Growth Heat Table
 
-<img width="1875" height="1201" alt="Candlestick" src="https://github.com/user-attachments/assets/2611d5fb-d609-4a1d-90bf-587016488c47" />
+<img width="1875" height="1201" alt="Candlestick" src="/images/heatmap.png" />
 
 ---
 | Calculation | Formula | Purpose |
@@ -213,7 +213,7 @@ END
 
 ## 🪄 **Treemap Calculations & Data Blending**
 
-<img width="1875" height="1201" alt="Candlestick" src="https://github.com/user-attachments/assets/2611d5fb-d609-4a1d-90bf-587016488c47" />
+<img width="1875" height="1201" alt="Candlestick" src="/images/treemap.png" />
 
 ---
 Both datasets were used separately due to **different grains**:
@@ -226,9 +226,11 @@ Since Tableau Public doesn’t allow joining these directly, **Data Blending** w
 
 ## 📸 **Dashboard Preview**
 
-<img width="1584" height="396" alt="dashboard-preview" src="/dashboard1.png" />
+<img width="1584" height="396" alt="dashboard-preview" src="/images/dashboard1.png" />
+
 ---
-<img width="1584" height="396" alt="dashboard-preview" src="/dashboard2.png" />
+
+<img width="1584" height="396" alt="dashboard-preview" src="/images/dashboard2.png" />
 
 ---
 
