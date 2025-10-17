@@ -124,6 +124,10 @@ GO
 Here are the **core calculated fields** that made the dashboard dynamic, responsive, and visually powerful.
 
 ## 🕯️ Candlestick Chart
+
+<img width="1875" height="1201" alt="Candlestick" src="https://github.com/user-attachments/assets/2611d5fb-d609-4a1d-90bf-587016488c47" />
+
+---
 | Calculation | Formula | Purpose |
 |--------------|----------|----------|
 | **RangeOpenClose** | `SUM([Close]) - SUM([Open])` | Defines candle body size |
