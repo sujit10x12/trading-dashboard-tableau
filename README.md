@@ -140,6 +140,10 @@ Here are the **core calculated fields** that made the dashboard dynamic, respons
 ---
 
 ## 📈 Bollinger Bands
+
+<img width="1875" height="1201" alt="Candlestick" src="https://github.com/user-attachments/assets/2611d5fb-d609-4a1d-90bf-587016488c47" />
+
+---
 | Calculation | Formula | Purpose |
 |--------------|----------|----------|
 | **CloseMA** | `WINDOW_AVG(SUM([Close]), -19, 0)` | 20-day moving average of close price |
@@ -167,6 +171,10 @@ END
 ---
 
 ## 📈 Relative Growth
+
+<img width="1875" height="1201" alt="Candlestick" src="https://github.com/user-attachments/assets/2611d5fb-d609-4a1d-90bf-587016488c47" />
+
+---
 | Calculation | Formula | Purpose |
 |--------------|----------|----------|
 | **CloseOnFirstDateVisible** | `WINDOW_MAX(IF MAX([Date]) = WINDOW_MIN(MIN([Date])) THEN SUM([Close]) END)` | Captures the first visible close price |
@@ -176,6 +184,10 @@ END
 ---
 
 ## 🔥 Total Growth Heat Table
+
+<img width="1875" height="1201" alt="Candlestick" src="https://github.com/user-attachments/assets/2611d5fb-d609-4a1d-90bf-587016488c47" />
+
+---
 | Calculation | Formula | Purpose |
 |--------------|----------|----------|
 | **CloseOnMaxDateContext** | `SUM(IF [Date] = [MaxDateContext] THEN [Close] END)` | Latest close price |
@@ -201,6 +213,9 @@ END
 
 ## 🪄 **Treemap Calculations & Data Blending**
 
+<img width="1875" height="1201" alt="Candlestick" src="https://github.com/user-attachments/assets/2611d5fb-d609-4a1d-90bf-587016488c47" />
+
+---
 Both datasets were used separately due to **different grains**:
 - **Historical Prices:** Ticker Price by *Day*  
 - **Intraday Prices:** Ticker Price by *Minute*
@@ -210,6 +225,7 @@ Since Tableau Public doesn’t allow joining these directly, **Data Blending** w
 ---
 
 ## 📸 **Dashboard Preview**
+
 <img width="1584" height="396" alt="dashboard-preview" src="/dashboard1.png" />
 ---
 <img width="1584" height="396" alt="dashboard-preview" src="/dashboard2.png" />
